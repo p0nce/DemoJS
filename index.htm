@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<title>#ponce - irrelevent</title>
+	    
+	
+    <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="gfm.js"></script>
+	<script type="text/javascript" src="vec3.js"></script>
+	<script type="text/javascript" src="vec4.js"></script>
+	<script type="text/javascript" src="mat4.js"></script>
+	<script type="text/javascript" src="texture.js"></script>
+	<script type="text/javascript" src="texturemanager.js"></script>
+	<script type="text/javascript" src="material.js"></script>
+	<script type="text/javascript" src="sphere.js"></script>
+	<script type="text/javascript" src="prim.js"></script>
+	<script type="text/javascript" src="primvec.js"></script>
+	<script type="text/javascript" src="slot.js"></script>
+	<script type="text/javascript" src="grid.js"></script>
+	<script type="text/javascript" src="renderer.js"></script>
+    <script type="text/javascript" src="audiomanager.js"></script>
+    <script type="text/javascript" src="sound.js"></script>
+    <script type="text/javascript" src="main.js"></script> 
+
+ 	<style>	
+		body 
+		{
+    		margin: 0px; 
+    		padding: 0px;
+    		background-color: #000;
+    		overflow:hidden;    		
+		}
+		
+		c0
+		{
+    		margin: 0px; 
+    		padding: 0px;
+		}
+    </style>
+</head>
+<body>
+    <canvas id="c0"></canvas>
+    <script type="text/javascript">
+	    var WX = 0, WY = 0;
+
+		var gfm = gfm || {};
+		gfm.main = null;
+
+        function setSize(e, w, h)
+        {
+            e.style.width = Math.floor(w) + "px";
+            e.style.height = Math.floor(h) + "px";	
+        }
+        
+        function setPosition(e, px, py)
+        {
+            e.style.left = Math.floor(px) + "px";
+            e.style.top = Math.floor(py) + "px";    
+        }
+        
+        function resize()
+		{	    	
+            WX = window.innerWidth || document.body.clientWidth;
+    		WY = window.innerHeight || document.body.clientHeight;
+            if (gfm && gfm.main)
+            {
+                gfm.main.resize(WX, WY);
+            }
+		}
+
+        gfm.t = 0;
+
+        gfm.loop = function()
+        {
+	        var dt = 0.040;
+            gfm.main.loop(gfm.t, dt);
+            gfm.t += dt;
+        };
+		
+		var addEvent = function(elem, type, eventHandle) {
+            if (elem == null || elem == undefined) return;
+            if ( elem.addEventListener ) {
+                elem.addEventListener( type, eventHandle, false );
+            } else if ( elem.attachEvent ) {
+                elem.attachEvent( "on" + type, eventHandle );
+            }
+        };
+        
+    
+        $(document).ready(function() {
+            resize();
+            gfm.main = new gfm.Main(WX, WY);
+            addEvent(window, "resize", resize);            
+            setInterval(gfm.loop, 40);
+		});
+
+		</script>	
+		
+    </body>
+</html>		
